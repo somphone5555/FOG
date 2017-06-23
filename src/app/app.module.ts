@@ -13,7 +13,7 @@ import {
   MdToolbarModule, MdTooltipModule
 } from '@angular/material';
 import 'hammerjs';
-import {PushNotificationsModule, SimpleNotificationsModule} from 'angular2-notifications/dist';
+import {PushNotificationsModule, SimpleNotificationsModule} from 'angular2-notifications';
 
 /***Angular Component*/
 import { MapComponent } from './map/map.component';

@@ -8,9 +8,14 @@ import {Component} from '@angular/core';
 
       <md-sidenav #sidenav mode="over">
 
+          <button md-button class="asbtn"> Pepper </button>
+          <button md-button class="asbtn"> Pepper </button>
+          <button md-button class="asbtn"> Pepper </button>
+
+
       </md-sidenav>
       <md-toolbar color="primary">
-        <button type="button" md-button (click)="sidenav.open()">
+        <button type="button" md-fab (click)="sidenav.open()">
           <md-icon>dashboard</md-icon>
         </button>
       </md-toolbar>
@@ -20,6 +25,9 @@ import {Component} from '@angular/core';
   styles: [`
     md-sidenav {
       width: 200px;
+    }
+    .asbtn {
+      width: 100%;
     }
   `]
 })
