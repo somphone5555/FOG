@@ -7,10 +7,15 @@ import {Component} from '@angular/core';
     <md-sidenav-container fullscreen>
 
       <md-sidenav #sidenav mode="over">
-
-          <button md-button class="asbtn"> Pepper </button>
-          <button md-button class="asbtn"> Pepper </button>
-          <button md-button class="asbtn"> Pepper </button>
+        <button md-fab style="left: 33%;margin-top: 2rem;margin-bottom: 2rem"><md-icon>home</md-icon></button>
+        <button md-button class="asbtn">
+          <md-icon>cloud</md-icon>
+          Weather
+        </button>
+        <button md-button class="asbtn"><md-icon class="asicon">place</md-icon> Map</button>
+        <button md-button class="asbtn"><md-icon>history</md-icon> History</button>
+        <button md-button class="asbtn"><md-icon>settings</md-icon> Setting</button>
+        <button md-button class="asbtn"><md-icon>sentiment_very_satisfied</md-icon> About</button>
 
 
       </md-sidenav>
@@ -26,9 +31,17 @@ import {Component} from '@angular/core';
     md-sidenav {
       width: 200px;
     }
+
     .asbtn {
       width: 100%;
+      text-align: left;
+      font-size: 20px;
+
     }
+    asicon {
+      
+    }
+
   `]
 })
 export class AppComponent {
