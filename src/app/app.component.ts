@@ -7,7 +7,7 @@ import {Component} from '@angular/core';
     <md-sidenav-container fullscreen>
 
       <md-sidenav #sidenav mode="over">
-        Jolly good!
+
       </md-sidenav>
       <md-toolbar color="primary">
         <button type="button" md-button (click)="sidenav.open()">
