@@ -13,6 +13,10 @@ import {appRoutes} from './app.router';
 /** Google Maps Module */
 import {AgmCoreModule} from '@agm/core';
 
+/** angular Firebase 2 module*/
+import { AngularFireModule } from 'angularfire2';
+import {environment} from '../environments/environment';
+
 /***Angular Libary*/
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
@@ -35,6 +39,8 @@ import { SettingComponent } from './setting/setting.component';
 import { AboutComponent } from './about/about.component';
 
 import {WmService} from './Services/wm.service';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -71,6 +77,9 @@ import {WmService} from './Services/wm.service';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBXoeOmRRzSl0b4iUBadAz8M-_Zva0DpfQ'
     }),
+    AngularFireModule.initializeApp(environment.firebase, 'WMdb'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     appRoutes
   ],
   providers: [MdIconRegistry, WmService],
