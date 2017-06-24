@@ -12,7 +12,7 @@ export class WmService {
 
   constructor(private  httpService: Http) { }
   getWeather(lat: number, long: number) {
-    this.query = '/data/2.5/find?lat=' + lat + '&lon=' + long + '&cnt=7&appid=2e2b67c3aa0414eb9b83c1c24193d75c';
+    this.query = '/data/2.5/find?lat=' + lat + '&lon=' + long + '&cnt=6&appid=2e2b67c3aa0414eb9b83c1c24193d75c';
     return this.httpService.get(this.server + this.query)
       .map((success) => {
         console.log(success);

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {WmService} from '../Services/wm.service';
 
 @Component({
   selector: 'app-weather',
@@ -6,112 +7,49 @@ import {Component, OnInit} from '@angular/core';
 
     <div fxLayout.lg="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch">
       <div fxFlex="30">
-        <md-card>
+        <md-card *ngIf="checkFirstArea">
           <div fxLayout="row" fxLayoutAlign="space-between none">
             <div>
-              <md-card-title style="font-size: 72px">LA</md-card-title>
-              <md-card-subtitle style="font-size: 42px">Vientaine</md-card-subtitle>
+              <md-card-title style="font-size: 30px">{{firstArea?.sys?.country}}</md-card-title>
+              <md-card-subtitle style="font-size: 20px">{{firstArea?.name}}</md-card-subtitle>
             </div>
             <div>
-              <md-card-title>Cloud</md-card-title>
-              <md-card-subtitle>Light cloud</md-card-subtitle>
+              <md-card-title>{{firstArea?.weather[0]?.main}}</md-card-title>
+              <md-card-subtitle>{{firstArea?.weather[0]?.description}}</md-card-subtitle>
             </div>
           </div>
           <md-card-content class="weathercontent">
             <div fxLayout="row">
-              <span fxFlex="50" style="font-size: 100px;">60ໍ</span>
+              <span fxFlex="50" style="font-size: 70px;">{{firstArea.main.temp - 273 | number: '1.0-0'}}ໍ C</span>
               <span fxFlex="50"><md-icon style="font-size: 100px">cloud</md-icon></span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
-              <div fxFlex="50">Max:<span>62ໍ</span>&nbsp;&nbsp;Min:<span>30ໍ</span></div>
-              <div fxFlex=50><span>Wind</span>&nbsp;&nbsp;<span>Nໍ</span><span>256</span></div>
+              <div fxFlex="50">
+                Max:<span> {{firstArea.main.temp_max - 273 | number: '1.0-0'}}ໍ C</span>&nbsp;&nbsp;Min:<span> {{firstArea.main.temp_min - 273 | number: '1.0-0'}}ໍ C</span>
+              </div>
+              <div fxFlex=50><span>Wind</span>&nbsp;&nbsp;<span>Speed: </span><span>{{firstArea?.wind?.speed}}</span></div>
             </div>
           </md-card-content>
         </md-card>
       </div>
       <div fxFlex="50" fxLayout="column">
-        <md-card>
+        <md-card *ngFor="let area of areas">
           <div fxLayout="row" fxLayoutAlign="space-between stretch">
             <div>
-              <md-card-title style="font-size: 32px">LA</md-card-title>
-              <md-card-subtitle style="font-size: 22px">Vientaine</md-card-subtitle>
+              <md-card-title style="font-size: 32px">{{area?.sys?.country}}</md-card-title>
+              <md-card-subtitle style="font-size: 22px">{{area?.name}}</md-card-subtitle>
             </div>
             <div fxLayout="row">
-              <span style="font-size: 50px;">60ໍ</span>&nbsp;
+              <span style="font-size: 50px;">{{area.main.temp - 273 | number: '1.0-0'}}ໍ C</span>&nbsp;
               <span><md-icon style="font-size: 50px">cloud</md-icon></span>
             </div>
             <div>
-              <md-card-title>Cloud</md-card-title>
-              <md-card-subtitle>Light cloud</md-card-subtitle>
+              <md-card-title>{{area?.weather[0]?.main}}</md-card-title>
+              <md-card-subtitle>{{area?.weather[0]?.description}}</md-card-subtitle>
             </div>
           </div>
         </md-card>
-        <md-card>
-          <div fxLayout="row" fxLayoutAlign="space-between stretch">
-            <div>
-              <md-card-title style="font-size: 32px">LA</md-card-title>
-              <md-card-subtitle style="font-size: 22px">Vientaine</md-card-subtitle>
-            </div>
-            <div fxLayout="row">
-              <span style="font-size: 50px;">60ໍ</span>&nbsp;
-              <span><md-icon style="font-size: 50px">cloud</md-icon></span>
-            </div>
-            <div>
-              <md-card-title>Cloud</md-card-title>
-              <md-card-subtitle>Light cloud</md-card-subtitle>
-            </div>
-          </div>
-        </md-card>
-        <md-card>
-          <div fxLayout="row" fxLayoutAlign="space-between stretch">
-            <div>
-              <md-card-title style="font-size: 32px">LA</md-card-title>
-              <md-card-subtitle style="font-size: 22px">Vientaine</md-card-subtitle>
-            </div>
-            <div fxLayout="row">
-              <span style="font-size: 50px;">60ໍ</span>&nbsp;
-              <span><md-icon style="font-size: 50px">cloud</md-icon></span>
-            </div>
-            <div>
-              <md-card-title>Cloud</md-card-title>
-              <md-card-subtitle>Light cloud</md-card-subtitle>
-            </div>
-          </div>
-        </md-card>
-        <md-card>
-          <div fxLayout="row" fxLayoutAlign="space-between stretch">
-            <div>
-              <md-card-title style="font-size: 32px">LA</md-card-title>
-              <md-card-subtitle style="font-size: 22px">Vientaine</md-card-subtitle>
-            </div>
-            <div fxLayout="row">
-              <span style="font-size: 50px;">60ໍ</span>&nbsp;
-              <span><md-icon style="font-size: 50px">cloud</md-icon></span>
-            </div>
-            <div>
-              <md-card-title>Cloud</md-card-title>
-              <md-card-subtitle>Light cloud</md-card-subtitle>
-            </div>
-          </div>
-        </md-card>
-        <md-card>
-          <div fxLayout="row" fxLayoutAlign="space-between stretch">
-            <div>
-              <md-card-title style="font-size: 32px">LA</md-card-title>
-              <md-card-subtitle style="font-size: 22px">Vientaine</md-card-subtitle>
-            </div>
-            <div fxLayout="row">
-              <span style="font-size: 50px;">60ໍ</span>&nbsp;
-              <span><md-icon style="font-size: 50px">cloud</md-icon></span>
-            </div>
-            <div>
-              <md-card-title>Cloud</md-card-title>
-              <md-card-subtitle>Light cloud</md-card-subtitle>
-            </div>
-          </div>
-        </md-card>
-
-
+        
       </div>
 
     </div>
@@ -129,11 +67,30 @@ import {Component, OnInit} from '@angular/core';
   `]
 })
 export class WeatherComponent implements OnInit {
-
-  constructor() {
+  areas = [];
+  firstArea = {};
+  checkFirstArea: boolean;
+  constructor(private wmService: WmService) {
+    this.checkFirstArea = false;
   }
 
   ngOnInit() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        this.wmService.getWeather(lat, lng).subscribe(success => {
+          this.areas = success['list'];
+          this.firstArea = this.areas[0];
+          this.areas.shift();
+          this.checkFirstArea = true;
+          console.log(this.firstArea);
+          console.log(this.areas);
+        }, error => {
+          console.log(error);
+        });
+      });
+    }
   }
 
 }
