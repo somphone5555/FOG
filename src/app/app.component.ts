@@ -90,8 +90,10 @@ export class AppComponent {
   weatherOpton = {
     timeOut: 3000,
     lastOnButtom: true,
-    showProgressBar: false,
-    icons: '../assets/ic_cloud_circle.png'
+    showProgressBar: true,
+    clickToClose: true,
+    animate: 'fromRight',
+    pauseOnHover: true
   };
 
   constructor(private notificationService: PushNotificationsService, private notification: NotificationsService) {
