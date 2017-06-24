@@ -8,7 +8,7 @@ import {NotificationsService} from 'angular2-notifications';
   template: `
     <md-toolbar color="primary">
 
-      <md-icon style="margin-left: 1rem; cursor: pointer;padding: 1rem;" (click)="sidenav.toggle()">dashboard</md-icon>
+      <md-icon style="margin-left: 1rem; cursor: pointer;padding: 1rem;" (click)="sidenav.toggle()">menu</md-icon>
 
     </md-toolbar>
 
@@ -114,7 +114,7 @@ export class AppComponent {
           return;
         }
         if (this.checkAllow) {
-          this.notification.info('Weather', 'You will get dialy weather every morning', this.weatherOpton);
+          this.notification.info('Weather', 'You will get dialy weather notification every morning', this.weatherOpton);
         }
       });
     }
