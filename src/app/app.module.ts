@@ -2,6 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import {CommonModule} from '@angular/common';
+import {HttpModule} from '@angular/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+/** Google Maps Module */
+
+import {AgmCoreModule} from '@agm/core';
 
 /***Angular Libary*/
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -32,6 +39,10 @@ import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpModule,
     MdButtonModule,
     MdToolbarModule,
     MdMenuModule,
@@ -44,7 +55,10 @@ import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
     MdSidenavModule,
     MdDialogModule,
     PushNotificationsModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBXoeOmRRzSl0b4iUBadAz8M-_Zva0DpfQ'
+    })
   ],
   providers: [MdIconRegistry],
   bootstrap: [AppComponent]
