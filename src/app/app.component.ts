@@ -5,9 +5,9 @@ import {Component} from '@angular/core';
   selector: 'app-root',
   template: `
     <md-toolbar color="primary">
-      <button type="button" md-fab (click)="sidenav.toggle()">
-        <md-icon>dashboard</md-icon>
-      </button>
+
+      <md-icon style="margin-left: 1rem; cursor: pointer;padding: 1rem;" (click)="sidenav.toggle()">dashboard</md-icon>
+    
     </md-toolbar>
 
     <md-sidenav-container fullscreen>
@@ -27,7 +27,7 @@ import {Component} from '@angular/core';
         </a>
         <a routerLink='history' md-button class="asbtn" (click)="sidenav.close()">
           <md-icon>history</md-icon>
-          History
+          Saved Cities
         </a>
         <a routerLink='about' md-button class="asbtn" (click)="sidenav.close()">
           <md-icon>sentiment_very_satisfied</md-icon>
