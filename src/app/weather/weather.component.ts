@@ -25,14 +25,15 @@ import {WmService} from '../Services/wm.service';
                                      alt='Icon depicting current weather.' width="100"></span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
-              <div fxFlex="50">
-                Max:<span> {{firstArea.main.temp_max - 273 | number: '1.0-0'}}ໍ </span>&nbsp;&nbsp;Min:<span> {{firstArea.main.temp_min - 273 | number: '1.0-0'}}ໍ </span>
+              <div fxFlex="50" style="font-size: 1rem">
+                <strong>Max:</strong><span> {{firstArea.main.temp_max - 273 | number: '1.0-0'}}ໍ </span>&nbsp;&nbsp;<strong>Min:</strong><span> {{firstArea.main.temp_min - 273 | number: '1.0-0'}}ໍ </span>
               </div>
-              <div fxFlex=50><span>Wind</span>&nbsp;&nbsp;<span>Speed: </span><span>{{firstArea?.wind?.speed}}</span>
+              <div fxFlex=50 style="font-size: 1rem"><strong>Wind Speed: </strong><span>{{firstArea?.wind?.speed}}</span>
               </div>
             </div>
-            <img md-card-image style="margin-top: 2rem"
-              src="https://maps.googleapis.com/maps/api/staticmap?center={{latlon}}&zoom=14&size=400x300&sensor=false&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU">
+            <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
+              <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+            </agm-map>
           </md-card-content>
         </md-card>
       </div>
@@ -67,14 +68,19 @@ import {WmService} from '../Services/wm.service';
       margin: 1rem;
       height: 100%;
     }
-
+    agm-map{
+      margin-top: 5rem;
+      width: 100%;
+      height: 400px;
+    }
   `]
 })
 export class WeatherComponent implements OnInit {
   areas = [];
   firstArea = {};
   checkFirstArea: boolean;
-  latlon: string;
+  lat: number;
+  lng: number;
 
   constructor(private wmService: WmService) {
     this.checkFirstArea = false;
@@ -85,7 +91,8 @@ export class WeatherComponent implements OnInit {
       navigator.geolocation.getCurrentPosition(position => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        this.latlon = lat + ',' + lng;
+        this.lat = lat;
+        this.lng = lng;
         this.wmService.getWeather(lat, lng).subscribe(success => {
           this.areas = success['list'];
           this.firstArea = this.areas[0];
@@ -98,6 +105,21 @@ export class WeatherComponent implements OnInit {
         });
       });
     }
+  }
+
+  newMarker($event) {
+    this.lat = $event.coords.lat;
+    this.lng = $event.coords.lng;
+    this.wmService.getWeather(this.lat, this.lng).subscribe(success => {
+      this.areas = success['list'];
+      this.firstArea = this.areas[0];
+      this.areas.shift();
+      this.checkFirstArea = true;
+      console.log(this.firstArea);
+      console.log(this.areas);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
