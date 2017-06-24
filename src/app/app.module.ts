@@ -4,10 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {CommonModule} from '@angular/common';
 import {HttpModule} from '@angular/http';
+import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-/** Google Maps Module */
+/** App router config */
+import {appRoutes} from './app.router';
 
+/** Google Maps Module */
 import {AgmCoreModule} from '@agm/core';
 
 /***Angular Libary*/
@@ -27,6 +30,8 @@ import { MapComponent } from './map/map.component';
 import { WeatherComponent } from './weather/weather.component';
 import { HistoryComponent } from './history/history.component';
 import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
+import { SettingComponent } from './setting/setting.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -34,12 +39,15 @@ import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
     MapComponent,
     WeatherComponent,
     HistoryComponent,
-    HisdetailComponent
+    HisdetailComponent,
+    SettingComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -58,7 +66,8 @@ import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
     SimpleNotificationsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBXoeOmRRzSl0b4iUBadAz8M-_Zva0DpfQ'
-    })
+    }),
+    appRoutes
   ],
   providers: [MdIconRegistry],
   bootstrap: [AppComponent]

@@ -13,50 +13,33 @@ import {Component} from '@angular/core';
     <md-sidenav-container fullscreen>
 
       <md-sidenav #sidenav mode="over">
-        <button md-fab style="left: 33%;margin-top: 2rem;margin-bottom: 2rem">
+        <a routerLink='' md-fab style="left: 33%;margin-top: 2rem;margin-bottom: 2rem">
           <md-icon>home</md-icon>
-        </button>
-        <button md-button class="asbtn">
+        </a>
+        <a routerLink='' md-button class="asbtn">
           <md-icon>cloud</md-icon>
           Weather
-        </button>
-        <button md-button class="asbtn">
+        </a>
+        <a routerLink='map' md-button class="asbtn">
           <md-icon class="asicon">place</md-icon>
           Map
-        </button>
-        <button md-button class="asbtn">
+        </a>
+        <a routerLink='history' md-button class="asbtn">
           <md-icon>history</md-icon>
           History
-        </button>
-        <button md-button class="asbtn">
+        </a>
+        <a routerLink='setting' md-button class="asbtn">
           <md-icon>settings</md-icon>
           Setting
-        </button>
-        <button md-button class="asbtn">
+        </a>
+        <a routerLink='about' md-button class="asbtn">
           <md-icon>sentiment_very_satisfied</md-icon>
           About
-        </button>
+        </a>
 
       </md-sidenav>
 
-      <md-grid-list cols="1" rowHeight="2:1">
-        <md-grid-tile>
-          <md-card>
-            <md-card-header>
-              <md-card-header>
-                <md-card-title>Laos</md-card-title>
-                <md-card-subtitle>Vientaine</md-card-subtitle>
-              </md-card-header>
-            </md-card-header>
-          <md-card-content class="weathercontent">
-            <img style="width: 72px;" src="../favicon.ico">
-            <span>60*</span>
-          </md-card-content>
-          </md-card>
-        </md-grid-tile>
-
-      </md-grid-list>
-
+      <router-outlet></router-outlet>
     </md-sidenav-container>
 
     <button md-fab class="savebtn">

@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'app-map',
   template: `
-    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="setNewMarker($event)">
+    <agm-map [latitude]="lat" [longitude]="lng">
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
   `,
@@ -31,8 +31,5 @@ export class MapComponent implements OnInit {
     }
   }
 
-  setNewMarker($event: MouseEvent) {
-    this.lat = $event.coords.lat;
-    this.lng = $event.coords.lng;
-  }
+
 }
