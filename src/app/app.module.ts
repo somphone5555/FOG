@@ -34,6 +34,8 @@ import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
 import { SettingComponent } from './setting/setting.component';
 import { AboutComponent } from './about/about.component';
 
+import {WmService} from './Services/wm.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +73,7 @@ import { AboutComponent } from './about/about.component';
     }),
     appRoutes
   ],
-  providers: [MdIconRegistry],
+  providers: [MdIconRegistry, WmService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
