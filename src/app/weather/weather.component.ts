@@ -21,7 +21,7 @@ import {WmService} from '../Services/wm.service';
           <md-card-content class="weathercontent">
             <div fxLayout="row">
               <span fxFlex="50" style="font-size: 70px;">{{firstArea.main.temp - 273 | number: '1.0-0'}}ໍ </span>
-              <span fxFlex="50"><md-icon style="font-size: 100px">cloud</md-icon></span>
+              <span fxFlex="50"><img src='http://openweathermap.org/img/w/{{firstArea?.weather[0]?.icon}}.png' alt='Icon depicting current weather.' width="100"></span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
               <div fxFlex="50">
@@ -41,7 +41,7 @@ import {WmService} from '../Services/wm.service';
               <md-card-subtitle style="font-size: 22px">{{area?.name}}</md-card-subtitle>
             </div>
             <div fxLayout="column">
-              <span><md-icon style="font-size: 50px">cloud</md-icon></span>
+              <span><img src='http://openweathermap.org/img/w/{{area?.weather[0]?.icon}}.png' alt='Icon depicting current weather.'></span>
               <span style="font-size: 50px;">{{area.main.temp - 273 | number: '1.0-0'}}ໍ </span>&nbsp;
             </div>
             <div style="text-align: right;margin-top: 4rem">
