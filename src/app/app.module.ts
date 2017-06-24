@@ -24,6 +24,7 @@ import {
 } from '@angular/material';
 import 'hammerjs';
 import {PushNotificationsModule, SimpleNotificationsModule} from 'angular2-notifications';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 /***Angular Component*/
 import { MapComponent } from './map/map.component';
@@ -62,6 +63,7 @@ import { AboutComponent } from './about/about.component';
     MdGridListModule,
     MdSidenavModule,
     MdDialogModule,
+    FlexLayoutModule,
     PushNotificationsModule,
     SimpleNotificationsModule.forRoot(),
     AgmCoreModule.forRoot({
