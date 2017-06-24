@@ -39,7 +39,7 @@ import {Component} from '@angular/core';
 
       </md-sidenav>
 
-      <md-grid-list cols="1" rowHeight="300px">
+      <md-grid-list cols="1" rowHeight="2:1">
         <md-grid-tile>
           <md-card>
             <md-card-header>
@@ -48,15 +48,10 @@ import {Component} from '@angular/core';
                 <md-card-subtitle>Vientaine</md-card-subtitle>
               </md-card-header>
             </md-card-header>
-            <md-card-content class="weathercontent">
-
-              <md-grid-list cols="2">
-                <md-grid-tile>
-                  <md-icon style="font-size: 72px">home</md-icon>
-                </md-grid-tile>
-                <md-grid-tile><p>60ໍ</p></md-grid-tile>
-              </md-grid-list>
-            </md-card-content>
+          <md-card-content class="weathercontent">
+            <img style="width: 72px;" src="../favicon.ico">
+            <span>60*</span>
+          </md-card-content>
           </md-card>
         </md-grid-tile>
 
@@ -103,14 +98,8 @@ import {Component} from '@angular/core';
       right: 20px;
       bottom: 10px;
     }
-
     .weathercontent {
       font-size: 100px;
-      flex: 50%;
-    }
-
-    md-card {
-      width: 400px;
     }
 
   `]
