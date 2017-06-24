@@ -13,12 +13,13 @@ import {Component} from '@angular/core';
     <md-sidenav-container fullscreen>
 
       <md-sidenav #sidenav mode="over">
-        <a routerLink='' md-fab style="left: 33%;margin-top: 2rem;margin-bottom: 2rem" (click)="sidenav.close()">
-          <md-icon>home</md-icon>
-        </a>
+        <md-slide-toggle [(ngModel)]="checkAllow" (change)="allowNotification()"
+                         style="margin-top: 2rem;margin-bottom: 2rem;margin-left: 1rem;">Notification
+        </md-slide-toggle>
+
         <a routerLink='' md-button class=" asbtn" (click)="sidenav.close()">
-        <md-icon>cloud</md-icon>
-        Weather
+          <md-icon>cloud</md-icon>
+          Weather
         </a>
         <a routerLink='map' md-button class="asbtn" (click)="sidenav.close()">
           <md-icon class="asicon">place</md-icon>
@@ -27,10 +28,6 @@ import {Component} from '@angular/core';
         <a routerLink='history' md-button class="asbtn" (click)="sidenav.close()">
           <md-icon>history</md-icon>
           History
-        </a>
-        <a routerLink='setting' md-button class="asbtn" (click)="sidenav.close()">
-          <md-icon>settings</md-icon>
-          Setting
         </a>
         <a routerLink='about' md-button class="asbtn" (click)="sidenav.close()">
           <md-icon>sentiment_very_satisfied</md-icon>
@@ -66,19 +63,18 @@ import {Component} from '@angular/core';
 
     }
 
-
     .asbtn {
-    width: 100%;
-    text-align: left;
-    font-size: 20px;
+      width: 100%;
+      text-align: left;
+      font-size: 20px;
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
 
     .savebtn {
-    position: absolute;
-    right: 20px;
-    bottom: 10px;
+      position: absolute;
+      right: 20px;
+      bottom: 10px;
     }
 
 
@@ -86,5 +82,10 @@ import {Component} from '@angular/core';
   `]
 })
 export class AppComponent {
-  title = 'app';
+  checkAllow = false;
+
+  allowNotification() {
+    console.log(this.checkAllow);
+  }
+
 }

@@ -20,14 +20,15 @@ import {WmService} from '../Services/wm.service';
           </div>
           <md-card-content class="weathercontent">
             <div fxLayout="row">
-              <span fxFlex="50" style="font-size: 70px;">{{firstArea.main.temp - 273 | number: '1.0-0'}}ໍ C</span>
+              <span fxFlex="50" style="font-size: 70px;">{{firstArea.main.temp - 273 | number: '1.0-0'}}ໍ </span>
               <span fxFlex="50"><md-icon style="font-size: 100px">cloud</md-icon></span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
               <div fxFlex="50">
-                Max:<span> {{firstArea.main.temp_max - 273 | number: '1.0-0'}}ໍ C</span>&nbsp;&nbsp;Min:<span> {{firstArea.main.temp_min - 273 | number: '1.0-0'}}ໍ C</span>
+                Max:<span> {{firstArea.main.temp_max - 273 | number: '1.0-0'}}ໍ </span>&nbsp;&nbsp;Min:<span> {{firstArea.main.temp_min - 273 | number: '1.0-0'}}ໍ </span>
               </div>
-              <div fxFlex=50><span>Wind</span>&nbsp;&nbsp;<span>Speed: </span><span>{{firstArea?.wind?.speed}}</span></div>
+              <div fxFlex=50><span>Wind</span>&nbsp;&nbsp;<span>Speed: </span><span>{{firstArea?.wind?.speed}}</span>
+              </div>
             </div>
           </md-card-content>
         </md-card>
@@ -35,21 +36,20 @@ import {WmService} from '../Services/wm.service';
       <div fxFlex="50" fxLayout="column">
         <md-card *ngFor="let area of areas">
           <div fxLayout="row" fxLayoutAlign="space-between stretch">
-            <div>
+            <div fxFlex="30">
               <md-card-title style="font-size: 32px">{{area?.sys?.country}}</md-card-title>
               <md-card-subtitle style="font-size: 22px">{{area?.name}}</md-card-subtitle>
             </div>
-            <div fxLayout="row">
-              <span style="font-size: 50px;">{{area.main.temp - 273 | number: '1.0-0'}}ໍ C</span>&nbsp;
+            <div fxLayout="column">
               <span><md-icon style="font-size: 50px">cloud</md-icon></span>
+              <span style="font-size: 50px;">{{area.main.temp - 273 | number: '1.0-0'}}ໍ </span>&nbsp;
             </div>
-            <div>
-              <md-card-title>{{area?.weather[0]?.main}}</md-card-title>
-              <md-card-subtitle>{{area?.weather[0]?.description}}</md-card-subtitle>
+            <div style="text-align: right;margin-top: 4rem">
+              <h4>{{area?.weather[0]?.main}}</h4>
+              <p>{{area?.weather[0]?.description}}</p>
             </div>
           </div>
         </md-card>
-        
       </div>
 
     </div>
@@ -70,6 +70,7 @@ export class WeatherComponent implements OnInit {
   areas = [];
   firstArea = {};
   checkFirstArea: boolean;
+
   constructor(private wmService: WmService) {
     this.checkFirstArea = false;
   }

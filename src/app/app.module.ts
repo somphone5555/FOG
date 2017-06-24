@@ -23,7 +23,7 @@ import {
   MdButtonModule, MdCardModule, MdDialogModule, MdGridListModule, MdIconModule, MdIconRegistry, MdInputModule,
   MdMenuModule,
   MdProgressSpinnerModule,
-  MdSidenavModule,
+  MdSidenavModule, MdSlideToggleModule,
   MdToolbarModule, MdTooltipModule
 } from '@angular/material';
 import 'hammerjs';
@@ -35,7 +35,6 @@ import { MapComponent } from './map/map.component';
 import { WeatherComponent } from './weather/weather.component';
 import { HistoryComponent } from './history/history.component';
 import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
-import { SettingComponent } from './setting/setting.component';
 import { AboutComponent } from './about/about.component';
 
 import {WmService} from './Services/wm.service';
@@ -49,7 +48,6 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     WeatherComponent,
     HistoryComponent,
     HisdetailComponent,
-    SettingComponent,
     AboutComponent
   ],
   imports: [
@@ -71,6 +69,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     MdGridListModule,
     MdSidenavModule,
     MdDialogModule,
+    MdSlideToggleModule,
     FlexLayoutModule,
     PushNotificationsModule,
     SimpleNotificationsModule.forRoot(),
