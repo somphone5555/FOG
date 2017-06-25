@@ -94,7 +94,7 @@ export class HistoryComponent implements OnInit {
   }
 
   deleteHistory(key) {
-    if(this.historyService.deleteHistory(key)){
+    if (this.historyService.deleteHistory(key)) {
       this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
     } else {
       this.notification.error('Error', 'Somthing went wrong', this.savedOpton);

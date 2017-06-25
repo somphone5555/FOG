@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DoCheck} from '@angular/core';
 import {PushNotificationsService} from './Notification/notificationService/push-notifications.service';
 import {NotificationsService} from 'angular2-notifications';
 import {HistoryService} from './Services/history.service';
@@ -11,7 +11,7 @@ declare const Notification: any;
     <md-toolbar color="primary">
 
       <md-icon fxFlex="100" style="margin-left: auto;cursor: pointer" (click)="sidenav.toggle()">menu</md-icon>
-      <md-icon style="margin-right: auto;cursor: pointer" (click)="logout()">exit_to_app</md-icon>
+      <md-icon style="margin-right: auto;cursor: pointer" (click)="logout()" *ngIf="checkLogined">exit_to_app</md-icon>
     </md-toolbar>
 
     <md-sidenav-container fullscreen>
@@ -31,7 +31,7 @@ declare const Notification: any;
           <md-icon class="asicon">place</md-icon>
           Map
         </a>
-        <a routerLink='history' md-button class="asbtn" (click)="sidenav.close()">
+        <a routerLink='history' md-button class="asbtn" (click)="sidenav.close()" *ngIf="checkLogined">
           <md-icon>history</md-icon>
           Saved Cities
         </a>
@@ -80,7 +80,7 @@ declare const Notification: any;
   `],
   providers: [PushNotificationsService, HistoryService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
   checkAllow = false;
   disableNotification = false;
   weatherOpton = {
@@ -91,6 +91,8 @@ export class AppComponent implements OnInit {
     animate: 'fromRight',
     pauseOnHover: true
   };
+
+  checkLogined = false;
 
   constructor(private notificationService: PushNotificationsService, private notification: NotificationsService, private historyService: HistoryService) {
   }
@@ -106,6 +108,14 @@ export class AppComponent implements OnInit {
           this.checkAllow = true;
         }
       });
+    }
+  }
+
+  ngDoCheck() {
+    if (localStorage.getItem('wmUserid')) {
+      this.checkLogined = true;
+    } else {
+      this.checkLogined = false;
     }
   }
 
