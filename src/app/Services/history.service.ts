@@ -7,13 +7,14 @@ import 'rxjs/add/observable/throw';
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class HistoryService {
   db: FirebaseListObservable<any>;
   user: Observable<firebase.User>;
 
-  constructor(private  httpService: Http, private firebasedb: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor(private  httpService: Http, private firebasedb: AngularFireDatabase, private afAuth: AngularFireAuth, private routerAbout: Router) {
     if (localStorage.getItem('wmUserid')) {
       this.db = firebasedb.list('/' + localStorage.getItem('wmUserid') + '/city');
     }
@@ -41,8 +42,10 @@ export class HistoryService {
   }
 
   logout() {
-    this.afAuth.auth.signOut();
-    localStorage.removeItem('wmUserid')
+    this.afAuth.auth.signOut().then(() => {
+      this.routerAbout.navigate(['']);
+      localStorage.removeItem('wmUserid')
+    });
   }
 
   getHistory(): FirebaseListObservable<any> {

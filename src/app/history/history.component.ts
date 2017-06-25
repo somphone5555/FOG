@@ -73,25 +73,24 @@ export class HistoryComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!localStorage.getItem('wmUserid')) {
-      this.historyService.loginGoogle();
+    if (localStorage.getItem('wmUserid')) {
+      this.historyService.getHistory().subscribe(success => {
+        this.currentWeathers = [];
+        const data = success;
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          this.wmService.getWeather(data[i]['display_location']['latitude'], data[i]['display_location']['longitude']).subscribe(suc => {
+            this.currentWeathers.push(suc.current_observation);
+          }, err => {
+            console.log(err);
+          });
+        }
+        this.historyDatas = success;
+      }, error => {
+        console.log(error);
+      });
     }
 
-    this.historyService.getHistory().subscribe(success => {
-      this.currentWeathers = [];
-      const data = success;
-      console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        this.wmService.getWeather(data[i]['display_location']['latitude'], data[i]['display_location']['longitude']).subscribe(suc => {
-          this.currentWeathers.push(suc.current_observation);
-        }, err => {
-          console.log(err);
-        });
-      }
-      this.historyDatas = success;
-    }, error => {
-      console.log(error);
-    });
   }
 
   deleteHistory(key) {

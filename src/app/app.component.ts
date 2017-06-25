@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PushNotificationsService} from './Notification/notificationService/push-notifications.service';
 import {NotificationsService} from 'angular2-notifications';
+import {HistoryService} from './Services/history.service';
 
 declare const Notification: any;
 
@@ -10,7 +11,7 @@ declare const Notification: any;
     <md-toolbar color="primary">
 
       <md-icon fxFlex="100" style="margin-left: auto;cursor: pointer" (click)="sidenav.toggle()">menu</md-icon>
-      <md-icon style="margin-right: auto;cursor: pointer">exit_to_app</md-icon>
+      <md-icon style="margin-right: auto;cursor: pointer" (click)="logout()">exit_to_app</md-icon>
     </md-toolbar>
 
     <md-sidenav-container fullscreen>
@@ -44,7 +45,7 @@ declare const Notification: any;
       <router-outlet></router-outlet>
     </md-sidenav-container>
 
-    
+
     <simple-notifications [options]="weatherOpton"></simple-notifications>
   `,
   styles: [`
@@ -77,7 +78,7 @@ declare const Notification: any;
 
 
   `],
-  providers: [PushNotificationsService]
+  providers: [PushNotificationsService, HistoryService]
 })
 export class AppComponent implements OnInit {
   checkAllow = false;
@@ -91,7 +92,7 @@ export class AppComponent implements OnInit {
     pauseOnHover: true
   };
 
-  constructor(private notificationService: PushNotificationsService, private notification: NotificationsService) {
+  constructor(private notificationService: PushNotificationsService, private notification: NotificationsService, private historyService: HistoryService) {
   }
 
   ngOnInit() {
@@ -106,6 +107,10 @@ export class AppComponent implements OnInit {
         }
       });
     }
+  }
+
+  logout() {
+    this.historyService.logout();
   }
 
   allowNotification() {
