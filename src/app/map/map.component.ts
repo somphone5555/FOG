@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WmService} from '../Services/wm.service';
+import {NotificationsService} from 'angular2-notifications';
+import {HistoryService} from '../Services/history.service';
 
 @Component({
   selector: 'app-map',
@@ -7,49 +9,55 @@ import {WmService} from '../Services/wm.service';
     <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
-    <md-card>
-      <button md-mini-fab style="position: absolute;right: 5px;top:5px;"><md-icon>add</md-icon></button>
+
+    <md-card *ngIf="checkShowWeather">
+      <button mdTooltip="Saved weather & city" md-mini-fab style="position: absolute;right: 5px;top:5px;"
+              (click)="saveCity()">
+        <md-icon>add</md-icon>
+      </button>
       <div fxLayout="row" fxLayoutAlign="space-between none">
         <div>
-          <md-card-title style="font-size: 25px">LA</md-card-title>
-          <md-card-subtitle style="font-size: 15px">Vientaine</md-card-subtitle>
+          <md-card-title style="font-size: 25px">{{markerWeather?.display_location?.country}}</md-card-title>
+          <md-card-subtitle style="font-size: 15px">{{markerWeather?.display_location?.city}}</md-card-subtitle>
         </div>
         <div>
 
         </div>
       </div>
       <md-card-content class="weathercontent">
-        
+
         <div fxLayout="row">
-          <span fxFlex="50" style="font-size: 50px;">30ໍ </span>
+          <span fxFlex="50" style="font-size: 50px;">{{markerWeather?.temp_c}}ໍ </span>
           <span fxFlex="50">
-            <!--<img [src]='firstArea?.icon_url'
-                                 alt='Icon depicting current weather.' width="100">-->
-            <md-icon style="font-size: 40px">cloud</md-icon>
+            <img [src]='markerWeather?.icon_url'
+                 alt='Icon depicting current weather.' width="100">
           </span>
-          <md-card-subtitle>cloud</md-card-subtitle>
+          <md-card-subtitle>{{markerWeather?.weather}}</md-card-subtitle>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
           <div fxFlex="50" style="font-size: 1rem">
 
           </div>
         </div>
-        <strong>Wind : </strong><span>dmdkdkkdkd ldk dkf</span><br>
+        <strong>Wind : </strong><span>{{markerWeather?.wind_string}}</span><br>
       </md-card-content>
     </md-card>
+    <simple-notifications [options]="savedOpton"></simple-notifications>
   `,
   styles: [`
-    agm-map{
+    agm-map {
       width: 100%;
       height: 91%;
     }
-    md-card{
+
+    md-card {
       position: absolute;
       left: 5px;
       bottom: 10px;
       width: 180px;
     }
-  `]
+  `],
+  providers: [HistoryService]
 })
 export class MapComponent implements OnInit {
 
@@ -58,7 +66,16 @@ export class MapComponent implements OnInit {
   lat: number;
   lng: number;
 
-  constructor(private wmService: WmService) {
+  savedOpton = {
+    timeOut: 3000,
+    lastOnButtom: true,
+    showProgressBar: true,
+    clickToClose: true,
+    animate: 'fromRight',
+    pauseOnHover: true
+  };
+
+  constructor(private wmService: WmService, private notification: NotificationsService, private historyService: HistoryService) {
   }
 
   ngOnInit() {
@@ -70,18 +87,29 @@ export class MapComponent implements OnInit {
       });
     }
   }
+
   newMarker($event) {
     this.lat = $event.coords.lat;
     this.lng = $event.coords.lng;
     console.log($event.coords.lat, '  ', $event.coords.lng);
     this.getWeather();
   }
+
   getWeather() {
     this.wmService.getWeather(this.lat, this.lng).subscribe(success => {
       this.markerWeather = success.current_observation;
-      console.log(this.markerWeather);
+      this.checkShowWeather = true;
+      setTimeout(() => {
+        this.checkShowWeather = false;
+      }, 10000)
     }, err => {
       console.log(err);
     });
+  }
+
+  saveCity() {
+    if (this.historyService.saveHistory(this.markerWeather)) {
+      this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
+    }
   }
 }
