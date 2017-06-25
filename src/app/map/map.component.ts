@@ -110,12 +110,19 @@ export class MapComponent implements OnInit {
   saveCity() {
     if (!localStorage.getItem('wmUserid')) {
       this.historyService.loginGoogle();
-    }
-
-    if (this.historyService.saveHistory(this.markerWeather)) {
-      this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
+      setTimeout(() => {
+        if (this.historyService.saveHistory(this.markerWeather)) {
+          this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
+        } else {
+          this.notification.error('Error', 'Somthing went wrong', this.savedOpton);
+        }
+      }, 10000)
     } else {
-      this.notification.error('Error', 'Somthing went wrong', this.savedOpton);
+      if (this.historyService.saveHistory(this.markerWeather)) {
+        this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
+      } else {
+        this.notification.error('Error', 'Somthing went wrong', this.savedOpton);
+      }
     }
   }
 }

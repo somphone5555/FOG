@@ -28,7 +28,6 @@ export class HistoryService {
           const uid = success2.uid;
           localStorage.setItem('wmUserid', uid);
           this.db = this.firebasedb.list('/' + uid + '/city');
-          console.log(uid);
         }, error2 => {
           console.log(error2)
         });
