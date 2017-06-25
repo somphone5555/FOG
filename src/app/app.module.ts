@@ -15,7 +15,6 @@ import {AgmCoreModule} from '@agm/core';
 
 /** angular Firebase 2 module*/
 import { AngularFireModule } from 'angularfire2';
-import {environment} from '../environments/environment';
 
 /***Angular Libary*/
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -40,6 +39,15 @@ import { AboutComponent } from './about/about.component';
 import {WmService} from './Services/wm.service';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+
+export const firebaseConfig = {
+  apiKey: 'AIzaSyA2GHXytr0APxnuCPiM4i_XnPCNPOuWXLo',
+  authDomain: 'fogdb-ef861.firebaseapp.com',
+  databaseURL: 'https://fogdb-ef861.firebaseio.com',
+  projectId: 'fogdb-ef861',
+  storageBucket: 'fogdb-ef861.appspot.com',
+  messagingSenderId: '662297158006'
+};
 
 @NgModule({
   declarations: [
@@ -76,7 +84,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBXoeOmRRzSl0b4iUBadAz8M-_Zva0DpfQ'
     }),
-    AngularFireModule.initializeApp(environment.firebase, 'WMdb'),
+    AngularFireModule.initializeApp(firebaseConfig, 'WMdb'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     appRoutes
