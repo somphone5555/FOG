@@ -26,12 +26,10 @@ import {WmService} from '../Services/wm.service';
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
               <div fxFlex="50" style="font-size: 1rem">
-                <strong>Max:</strong><span> {{firstArea.main.temp_max - 273 | number: '1.0-0'}}ໍ </span>&nbsp;&nbsp;<strong>Min:</strong><span> {{firstArea.main.temp_min - 273 | number: '1.0-0'}}ໍ </span>
-              </div>
-              <div fxFlex=50 style="font-size: 1rem"><strong>Wind Speed: </strong><span>{{firstArea?.wind?.speed}}</span>
+                <strong>Wind : </strong><span>{{firstArea?.wind?.speed}}</span>
               </div>
             </div>
-            <agm-map md-card-image [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
+            <agm-map style="height: 380px" md-card-image [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
           </md-card-content>
