@@ -33,7 +33,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MapComponent } from './map/map.component';
 import { WeatherComponent } from './weather/weather.component';
 import { HistoryComponent } from './history/history.component';
-import { HisdetailComponent } from './history/hisdetail/hisdetail.component';
 import { AboutComponent } from './about/about.component';
 
 import {WmService} from './Services/wm.service';
@@ -55,7 +54,6 @@ export const firebaseConfig = {
     MapComponent,
     WeatherComponent,
     HistoryComponent,
-    HisdetailComponent,
     AboutComponent
   ],
   imports: [
