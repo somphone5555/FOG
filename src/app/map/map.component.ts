@@ -110,6 +110,8 @@ export class MapComponent implements OnInit {
   saveCity() {
     if (this.historyService.saveHistory(this.markerWeather)) {
       this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
+    } else {
+      this.notification.error('Error', 'Somthing went wrong', this.savedOpton);
     }
   }
 }

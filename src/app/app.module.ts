@@ -82,7 +82,7 @@ export const firebaseConfig = {
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBXoeOmRRzSl0b4iUBadAz8M-_Zva0DpfQ'
     }),
-    AngularFireModule.initializeApp(firebaseConfig, 'WMdb'),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     appRoutes
