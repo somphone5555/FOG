@@ -3,8 +3,7 @@ import {WmService} from '../Services/wm.service';
 
 @Component({
   selector: 'app-weather',
-  template: `
-
+  template: `    
     <div fxLayout.lg="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="center stretch">
       <div fxFlex="30">
         <md-card *ngIf="checkFirstArea">
@@ -58,6 +57,7 @@ import {WmService} from '../Services/wm.service';
       </div>
 
     </div>
+
   `,
   styles: [`
     md-grid-list {

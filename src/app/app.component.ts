@@ -9,8 +9,8 @@ declare const Notification: any;
   template: `
     <md-toolbar color="primary">
 
-      <md-icon style="margin-left: 1rem; cursor: pointer;padding: 1rem;" (click)="sidenav.toggle()">menu</md-icon>
-
+      <md-icon fxFlex="100" style="margin-left: auto;cursor: pointer" (click)="sidenav.toggle()">menu</md-icon>
+      <md-icon style="margin-right: auto;cursor: pointer">exit_to_app</md-icon>
     </md-toolbar>
 
     <md-sidenav-container fullscreen>
@@ -44,9 +44,7 @@ declare const Notification: any;
       <router-outlet></router-outlet>
     </md-sidenav-container>
 
-    <button md-fab class="savebtn">
-      <md-icon>add</md-icon>
-    </button>
+    
     <simple-notifications [options]="weatherOpton"></simple-notifications>
   `,
   styles: [`
@@ -77,11 +75,7 @@ declare const Notification: any;
       padding-bottom: 1rem;
     }
 
-    .savebtn {
-      position: absolute;
-      right: 20px;
-      bottom: 10px;
-    }
+
   `],
   providers: [PushNotificationsService]
 })
