@@ -10,8 +10,6 @@ export class PushNotificationsService {
     permission: Permission;
 
     constructor() {
-      console.log(this.permission);
-      console.log(Notification.permission);
         this.permission  = this.isSupported() ? Notification.permission : 'denied';
     }
 

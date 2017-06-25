@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {PushNotificationsService} from './Notification/notificationService/push-notifications.service';
 import {NotificationsService} from 'angular2-notifications';
 
+declare const Notification: any;
 
 @Component({
   selector: 'app-root',
@@ -97,18 +98,25 @@ export class AppComponent {
   };
 
   constructor(private notificationService: PushNotificationsService, private notification: NotificationsService) {
-    Notification.requestPermission((st: any) => {
-      if (st == 'denied') {
+    if ('Notification' in window) {
+      console.log(Notification.permission);
+      if (Notification.permission === 'denied') {
         this.disableNotification = true;
         this.checkAllow = false;
       }
-    });
+      else if (Notification.permission === 'granted') {
+        this.checkAllow = true;
+      }
+    }
   }
 
   allowNotification() {
     if ('Notification' in window) {
       Notification.requestPermission((status: any) => {
-        if (status == 'denied') {
+        Notification.onclick = function(event) {
+          console.log(event);
+        };
+        if (status === 'denied') {
           this.disableNotification = true;
           this.checkAllow = false;
           return;
@@ -118,7 +126,12 @@ export class AppComponent {
         }
       });
     }
-
+  }
+  checkPermission(){
+    if (Notification.permission === 'denied') {
+      this.disableNotification = true;
+      this.checkAllow = false;
+    }
   }
 
 }
