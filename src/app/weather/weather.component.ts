@@ -31,7 +31,7 @@ import {WmService} from '../Services/wm.service';
               <div fxFlex=50 style="font-size: 1rem"><strong>Wind Speed: </strong><span>{{firstArea?.wind?.speed}}</span>
               </div>
             </div>
-            <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
+            <agm-map md-card-image [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
           </md-card-content>
