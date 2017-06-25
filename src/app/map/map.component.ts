@@ -17,6 +17,8 @@ import {WmService} from '../Services/wm.service';
 })
 export class MapComponent implements OnInit {
 
+  markerWeather: Object;
+  checkShowWeather = false;
   lat: number;
   lng: number;
 
@@ -39,8 +41,9 @@ export class MapComponent implements OnInit {
     this.getWeather();
   }
   getWeather() {
-    this.wmService.getMapWeather(this.lat, this.lng).subscribe(success => {
-      console.log(success);
+    this.wmService.getWeather(this.lat, this.lng).subscribe(success => {
+      this.markerWeather = success;
+      console.log(this.markerWeather);
     }, err => {
       console.log(err);
     });

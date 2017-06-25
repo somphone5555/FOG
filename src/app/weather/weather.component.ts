@@ -10,26 +10,27 @@ import {WmService} from '../Services/wm.service';
         <md-card *ngIf="checkFirstArea">
           <div fxLayout="row" fxLayoutAlign="space-between none">
             <div>
-              <md-card-title style="font-size: 30px">{{firstArea?.sys?.country}}</md-card-title>
-              <md-card-subtitle style="font-size: 20px">{{firstArea?.name}}</md-card-subtitle>
+              <md-card-title style="font-size: 30px">{{firstArea?.display_location?.country}}</md-card-title>
+              <md-card-subtitle style="font-size: 20px">{{firstArea?.display_location?.city}}</md-card-subtitle>
             </div>
             <div>
-              <md-card-title>{{firstArea?.weather[0]?.main}}</md-card-title>
-              <md-card-subtitle>{{firstArea?.weather[0]?.description}}</md-card-subtitle>
+              <md-card-title>{{firstArea?.weather}}</md-card-title>
+              <md-card-subtitle>Description</md-card-subtitle>
             </div>
           </div>
           <md-card-content class="weathercontent">
             <div fxLayout="row">
-              <span fxFlex="50" style="font-size: 70px;">{{firstArea.main.temp - 273 | number: '1.0-0'}}ໍ </span>
-              <span fxFlex="50"><img src='http://openweathermap.org/img/w/{{firstArea?.weather[0]?.icon}}.png'
+              <span fxFlex="50" style="font-size: 70px;">{{firstArea?.temp_c}}ໍ </span>
+              <span fxFlex="50"><img [src]='firstArea?.icon_url'
                                      alt='Icon depicting current weather.' width="100"></span>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
               <div fxFlex="50" style="font-size: 1rem">
-                <strong>Wind : </strong><span>{{firstArea?.wind?.speed}}</span>
+                <strong>Wind : </strong><span>{{firstArea?.wind_string}}</span>
               </div>
             </div>
-            <agm-map style="height: 380px" md-card-image [latitude]="lat" [longitude]="lng" (mapClick)="newMarker($event)">
+            <agm-map style="height: 380px" md-card-image [latitude]="lat" [longitude]="lng"
+                     (mapClick)="newMarker($event)">
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
           </md-card-content>
@@ -39,17 +40,17 @@ import {WmService} from '../Services/wm.service';
         <md-card *ngFor="let area of areas">
           <div fxLayout="row" fxLayoutAlign="space-between stretch">
             <div fxFlex="30">
-              <md-card-title style="font-size: 32px">{{area?.sys?.country}}</md-card-title>
-              <md-card-subtitle style="font-size: 22px">{{area?.name}}</md-card-subtitle>
+              <md-card-title style="font-size: 30px">{{area?.current_observation?.display_location?.country}}</md-card-title>
+              <md-card-subtitle style="font-size: 18px">{{area?.current_observation?.display_location?.city}}</md-card-subtitle>
             </div>
             <div fxLayout="column">
-              <span><img src='http://openweathermap.org/img/w/{{area?.weather[0]?.icon}}.png'
+              <span><img [src]='area?.current_observation?.icon_url'
                          alt='Icon depicting current weather.'></span>
-              <span style="font-size: 50px;">{{area.main.temp - 273 | number: '1.0-0'}}ໍ </span>&nbsp;
+              <span style="font-size: 50px;">{{area?.current_observation?.temp_c}}ໍ </span>&nbsp;
             </div>
             <div style="text-align: right;margin-top: 4rem">
-              <h4>{{area?.weather[0]?.main}}</h4>
-              <p>{{area?.weather[0]?.description}}</p>
+              <h4>{{area?.current_observation?.weather}}</h4>
+              <p>Description</p>
             </div>
           </div>
         </md-card>
@@ -66,7 +67,8 @@ import {WmService} from '../Services/wm.service';
       margin: 1rem;
       height: 100%;
     }
-    agm-map{
+
+    agm-map {
       margin-top: 5rem;
       width: 100%;
       height: 400px;
@@ -91,13 +93,17 @@ export class WeatherComponent implements OnInit {
         const lng = position.coords.longitude;
         this.lat = lat;
         this.lng = lng;
-        this.wmService.getWeather(lat, lng).subscribe(success => {
-          this.areas = success['list'];
-          this.firstArea = this.areas[0];
-          this.areas.shift();
-          this.checkFirstArea = true;
+        this.wmService.getWeather(this.lat, this.lng).subscribe(success => {
+          this.firstArea = success.current_observation;
           console.log(this.firstArea);
-          console.log(this.areas);
+          for (let i = 0; i < 5; i++) {
+            this.wmService.getWeather((this.lat + (Math.random() * 0.5)), (this.lng + (Math.random() * 0.5))).subscribe(nearby => {
+              this.areas[i] = nearby;
+            }, err => {
+              console.log(err);
+            });
+          }
+          this.checkFirstArea = true;
         }, error => {
           console.log(error);
         });
@@ -109,12 +115,16 @@ export class WeatherComponent implements OnInit {
     this.lat = $event.coords.lat;
     this.lng = $event.coords.lng;
     this.wmService.getWeather(this.lat, this.lng).subscribe(success => {
-      this.areas = success['list'];
-      this.firstArea = this.areas[0];
-      this.areas.shift();
-      this.checkFirstArea = true;
+      this.firstArea = success.current_observation;
       console.log(this.firstArea);
-      console.log(this.areas);
+      for (let i = 0; i < 5; i++) {
+        this.wmService.getWeather((this.lat + (Math.random() * 0.5)), (this.lng + (Math.random() * 0.5))).subscribe(nearby => {
+          this.areas[i] = nearby;
+        }, err => {
+          console.log(err);
+        });
+      }
+      this.checkFirstArea = true;
     }, error => {
       console.log(error);
     });

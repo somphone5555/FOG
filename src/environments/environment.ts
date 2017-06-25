@@ -5,12 +5,4 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: 'AIzaSyA2GHXytr0APxnuCPiM4i_XnPCNPOuWXLo',
-    authDomain: 'fogdb-ef861.firebaseapp.com',
-    databaseURL: 'https://fogdb-ef861.firebaseio.com',
-    projectId: 'fogdb-ef861',
-    storageBucket: 'fogdb-ef861.appspot.com',
-    messagingSenderId: '662297158006'
-  }
 };
