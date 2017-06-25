@@ -73,6 +73,10 @@ export class HistoryComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!localStorage.getItem('wmUserid')) {
+      this.historyService.loginGoogle();
+    }
+
     this.historyService.getHistory().subscribe(success => {
       this.currentWeathers = [];
       const data = success;

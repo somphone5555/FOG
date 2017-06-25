@@ -108,6 +108,10 @@ export class MapComponent implements OnInit {
   }
 
   saveCity() {
+    if (!localStorage.getItem('wmUserid')) {
+      this.historyService.loginGoogle();
+    }
+
     if (this.historyService.saveHistory(this.markerWeather)) {
       this.notification.success('Saved', 'Your city is saved successfully', this.savedOpton);
     } else {
