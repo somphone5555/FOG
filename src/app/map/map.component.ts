@@ -42,7 +42,7 @@ export class MapComponent implements OnInit {
   }
   getWeather() {
     this.wmService.getWeather(this.lat, this.lng).subscribe(success => {
-      this.markerWeather = success;
+      this.markerWeather = success.current_observation;
       console.log(this.markerWeather);
     }, err => {
       console.log(err);

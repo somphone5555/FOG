@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PushNotificationsService} from './Notification/notificationService/push-notifications.service';
 import {NotificationsService} from 'angular2-notifications';
 
@@ -85,7 +85,7 @@ declare const Notification: any;
   `],
   providers: [PushNotificationsService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   checkAllow = false;
   disableNotification = false;
   weatherOpton = {
@@ -98,39 +98,25 @@ export class AppComponent {
   };
 
   constructor(private notificationService: PushNotificationsService, private notification: NotificationsService) {
-    if ('Notification' in window) {
-      console.log(Notification.permission);
-      if (Notification.permission === 'denied') {
-        this.disableNotification = true;
-        this.checkAllow = false;
-      }
-      else if (Notification.permission === 'granted') {
-        this.checkAllow = true;
-      }
-    }
   }
 
-  allowNotification() {
+  ngOnInit() {
     if ('Notification' in window) {
       Notification.requestPermission((status: any) => {
-        Notification.onclick = function(event) {
-          console.log(event);
-        };
         if (status === 'denied') {
           this.disableNotification = true;
           this.checkAllow = false;
           return;
-        }
-        if (this.checkAllow) {
-          this.notification.info('Weather', 'You will get dialy weather notification every morning', this.weatherOpton);
+        } else if (status === 'granted') {
+          this.checkAllow = true;
         }
       });
     }
   }
-  checkPermission(){
-    if (Notification.permission === 'denied') {
-      this.disableNotification = true;
-      this.checkAllow = false;
+
+  allowNotification() {
+    if (this.checkAllow && (Notification.permission !== 'denied')) {
+      this.notification.info('Weather', 'You will get dialy weather notification every morning', this.weatherOpton);
     }
   }
 
