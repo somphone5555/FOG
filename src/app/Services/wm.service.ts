@@ -7,7 +7,7 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class WmService {
-  server = 'http://api.wunderground.com';
+  server = 'https://api.wunderground.com';
   query: string;
 
   constructor(private  httpService: Http) {

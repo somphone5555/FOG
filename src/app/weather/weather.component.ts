@@ -15,7 +15,7 @@ import {WmService} from '../Services/wm.service';
             </div>
             <div>
               <md-card-title>{{firstArea?.weather}}</md-card-title>
-              <md-card-subtitle>Description</md-card-subtitle>
+              
             </div>
           </div>
           <md-card-content class="weathercontent">
@@ -26,10 +26,11 @@ import {WmService} from '../Services/wm.service';
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" style="font-size: 1em">
               <div fxFlex="50" style="font-size: 1rem">
-                <strong>Wind : </strong><span>{{firstArea?.wind_string}}</span>
+                
               </div>
             </div>
-            <agm-map style="height: 380px" md-card-image [latitude]="lat" [longitude]="lng"
+            <strong>Wind : </strong><span>{{firstArea?.wind_string}}</span><br>
+            <agm-map style="height: 360px" md-card-image [latitude]="lat" [longitude]="lng"
                      (mapClick)="newMarker($event)">
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
@@ -50,7 +51,7 @@ import {WmService} from '../Services/wm.service';
             </div>
             <div style="text-align: right;margin-top: 4rem">
               <h4>{{area?.current_observation?.weather}}</h4>
-              <p>Description</p>
+              
             </div>
           </div>
         </md-card>
